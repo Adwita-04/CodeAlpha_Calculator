@@ -4,6 +4,7 @@
     font-size: 1.4rem;
 }
 
+/* Basic theme */
 main {
     background: radial-gradient(circle, rgba(0, 255, 166, 0.176), rgba(19, 1, 4, 0.15), rgba(0, 42, 255, 0.196));
     display: grid;
@@ -12,13 +13,32 @@ main {
     min-height: 100vh;
 }
 
+/* Night theme styling */
+.Night-Mode {
+    max-width: 90px;
+    margin-left: 10px;
+    font-size: 0.6rem;
+    height: 37px;
+}
+
+.nightTheme {
+    background: radial-gradient(circle, rgba(10, 10, 20, 0.763),
+            rgba(20, 20, 50, 0.854),
+            rgb(5, 10, 20));
+}
+
+.nightTheme .calculator-wrapper {
+    background-color: rgba(2, 6, 36, 0.505);
+    color: beige;
+}
+/* Calculator styling */
 .calculator-wrapper {
-    background-color: rgba(0, 0, 0, 0.748);
+    background-color: rgba(0, 0, 0, 0.823);
     padding: 1.5rem;
     border-radius: 30px;
     width: 100%;
     max-width: 450px;
-    box-shadow: 15px 15px 7px 10px rgba(0, 0, 0, 0.274);
+    box-shadow: 15px 15px 7px 10px rgba(0, 0, 0, 0.366);
 }
 
 .display-container {
@@ -26,6 +46,14 @@ main {
     border: 3px solid rgba(0, 0, 0, 0.189);
     margin: 5px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.274);
+}
+input {
+    background: transparent;
+    border: none;
+    text-align: right;
+    width: 100%;
+    font-size: 2rem;
+    padding: 25px;
 }
 
 .base-container {
@@ -35,22 +63,46 @@ main {
     gap: 10px;
 }
 
+/* Button Styling */
 button {
     height: 3rem;
     width: 100%;
     border-radius: 15px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.274);
 }
-button:hover{
+
+.base-container button:hover {
     cursor: pointer;
-    font-size: 1.2rem;
 }
 
-@media(max-width:750) {
-    .calculator-wrapper {
-        width: 90%;
-        max-width: 200px;
-        margin: auto;
+.special {
+    color: rgb(255, 119, 0);
+}
 
+.equal {
+    background-color: rgb(226, 131, 43);
+    color: white;
+}
+
+@media (max-width: 450px) {
+    .calculator-wrapper {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    input {
+        font-size: 1.2rem;
+        padding: 15px;
+    }
+
+    .base-container button {
+        font-size: 1rem;
+        padding: 8px;
+        height: 2.4rem;
+    }
+
+    .Night-Mode {
+        font-size: 0.5rem;
+        height: 25px;
     }
 }
