@@ -2,6 +2,7 @@ const buttons = document.querySelectorAll(".base-container button");
 const input = document.querySelector(".input");
 const main = document.querySelector(".main");
 const night = document.querySelector(".Night-Mode");
+const operators = ['+', '-', '*', '/','%','.'];
 // Convert NodeList to Array
 let arr = Array.from(buttons);
 
@@ -18,7 +19,7 @@ night.addEventListener("click", () => {
 });
 
 
-//For keyboard support
+
 arr.forEach(btn => {
   btn.addEventListener("click", (e) => {
     const btnText = e.target.innerHTML;
@@ -37,22 +38,24 @@ arr.forEach(btn => {
         input.value = "Error";
         expression = "";
       }
-    } else if (btnText ==="√") {
-      try {
-        let evaluated = eval(expression);
-        expression = Math.sqrt(evaluated).toString();
-        input.value = expression;
-      } catch (error) {
-        input.value = "Error";
-        expression = "";
-      }
     } else {
-      expression += btnText;
-      input.value = expression;
+      
+  // Check if current button is an operator
+  if (operators.includes(btnText)) {
+    const lastChar = expression[expression.length - 1];
+    
+    // If last char is also operator, replace it
+    if (operators.includes(lastChar)) {
+      expression = expression.slice(0, -1); // Remove last operator
+    }
+  }
+// Add current input
+  expression += btnText;
+  input.value = expression;
     }
   });
 });
-
+//For keyboard support
   document.addEventListener("keydown", (e) => {
     const btnText = e.key;
     if (btnText === "Escape") {
@@ -70,18 +73,20 @@ arr.forEach(btn => {
         input.value = "Error";
         expression = "";
       }
-    } else if (btnText ==="r" || btnText === "R") {
-      try {
-        let evaluated = eval(expression);
-        expression = Math.sqrt(evaluated).toString();
-        input.value = expression;
-      } catch (error) {
-        input.value = "Error";
-        expression = "";
-      }
+    
     } else {
-      expression += btnText;
-      input.value = expression;
+  // Check if current button is an operator
+  if (operators.includes(btnText)) {
+    const lastChar = expression[expression.length - 1];
+    
+    // If last char is also operator, replace it
+    if (operators.includes(lastChar)) {
+      expression = expression.slice(0, -1); // Remove last operator
+    }
+  }
+  // Add current input
+  expression += btnText;
+  input.value = expression;
     }
   });
 

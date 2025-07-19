@@ -22,9 +22,9 @@ main {
 }
 
 .nightTheme {
-    background: radial-gradient(circle, rgba(10, 10, 20, 0.763),
+    background: radial-gradient(circle, rgba(10, 10, 20, 0.659),
             rgba(20, 20, 50, 0.854),
-            rgb(5, 10, 20));
+            rgba(5, 10, 20, 0.843));
 }
 
 .nightTheme .calculator-wrapper {
@@ -46,6 +46,7 @@ main {
     border: 3px solid rgba(0, 0, 0, 0.189);
     margin: 5px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.274);
+   
 }
 input {
     background: transparent;
@@ -54,6 +55,7 @@ input {
     width: 100%;
     font-size: 2rem;
     padding: 25px;
+    color: rgba(255, 255, 255, 0.747);
 }
 
 .base-container {
