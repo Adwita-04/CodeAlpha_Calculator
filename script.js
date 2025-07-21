@@ -49,6 +49,17 @@ arr.forEach(btn => {
       expression += "*";
       input.value = inputToShow;
     }
+    else if (btnText === "%") {
+      try {
+        expression = (eval(expression) / 100).toString();
+        inputToShow = expression;
+        input.value = inputToShow;
+      } catch (error) {
+        input.value = "Error";
+        expression = "";
+        inputToShow = "";
+      }
+    }
     else {
       expression += btnText;
       inputToShow += btnText;
@@ -60,6 +71,7 @@ arr.forEach(btn => {
 //For keyboard support
 document.addEventListener("keydown", (e) => {
   const btnText = e.key;
+  if (["Shift", "Control", "Alt", "Meta"].includes(btnText)) return;
   if (/^[a-zA-Z]$/.test(btnText)) {
     e.preventDefault();
     alert("Only numbers and operators are allowed!!!");
@@ -94,8 +106,19 @@ document.addEventListener("keydown", (e) => {
     inputToShow += "x";
     expression += "*";
     input.value = inputToShow;
+  } else if ((e.shiftKey && btnText === "5") || btnText === "%") {
+    try {
+      expression = (eval(expression) / 100).toString();
+      inputToShow = expression;
+      input.value = inputToShow;
+    } catch (error) {
+      input.value = "Error";
+      expression = "";
+      inputToShow = "";
+    }
   }
-  else { // Add normal key to input
+  else {
+    // Add normal key to input
     expression += btnText;
     inputToShow += btnText;
     input.value = inputToShow;
