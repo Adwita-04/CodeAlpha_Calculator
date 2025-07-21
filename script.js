@@ -31,14 +31,18 @@ arr.forEach(btn => {
       input.value = inputToShow || "0";
     } else if (btnText === "=") {
       try {
-        expression = eval(expression).toFixed(4).toString();
-        inputToShow = expression;
-        input.value = inputToShow;
-      } catch (error) {
-        input.value = "Error";
-        expression = "";
-        inputToShow = "";
-      }
+    let result = eval(expression);
+    expression = Number.isInteger(result)
+      ? result.toString()
+      : parseFloat(result.toFixed(10)).toString();
+    inputToShow = expression;
+    input.value = inputToShow;
+  } catch (error) {
+    input.value = "Error";
+    expression = "";
+    inputToShow = "";
+  }
+
     } else if (btnText === "÷") {
       inputToShow += "÷";
       expression += "/";
@@ -71,7 +75,7 @@ arr.forEach(btn => {
 //For keyboard support
 document.addEventListener("keydown", (e) => {
   const btnText = e.key;
-  if (["Shift", "Control", "Alt", "Meta"].includes(btnText)) return;
+  if (["Shift", "Control", "Alt", "CapsLock","Tab","Ctrl"].includes(btnText)) return;
   if (/^[a-zA-Z]$/.test(btnText)) {
     e.preventDefault();
     alert("Only numbers and operators are allowed!!!");
@@ -88,15 +92,18 @@ document.addEventListener("keydown", (e) => {
     input.value = inputToShow || "0";
   }
   else if (btnText === "Enter" || btnText === "=") {
-    try {
-      expression = eval(expression).toFixed(4).toString();
-      inputToShow = expression;
-      input.value = inputToShow;
-    } catch (error) {
-      input.value = "Error";
-      expression = "";
-      inputToShow = "";
-    }
+   try {
+    let result = eval(expression);
+    expression = Number.isInteger(result)
+      ? result.toString()
+      : parseFloat(result.toFixed(10)).toString();
+    inputToShow = expression;
+    input.value = inputToShow;
+  } catch (error) {
+    input.value = "Error";
+    expression = "";
+    inputToShow = "";
+  }
   }
   else if (btnText === "/" || btnText === "÷") {
     inputToShow += "÷";
