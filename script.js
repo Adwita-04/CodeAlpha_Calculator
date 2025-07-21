@@ -2,7 +2,6 @@ const buttons = document.querySelectorAll(".base-container button");
 const input = document.querySelector(".input");
 const main = document.querySelector(".main");
 const night = document.querySelector(".Night-Mode");
-const operators = ['+', '-', '*', '/','%','.'];
 // Convert NodeList to Array
 let arr = Array.from(buttons);
 
@@ -17,76 +16,88 @@ night.addEventListener("click", () => {
     night.textContent = "🌠Switch to Night Mode";
   }
 });
-
-
-
+let inputToShow = "";
 arr.forEach(btn => {
   btn.addEventListener("click", (e) => {
     const btnText = e.target.innerHTML;
-    if (btnText ==="AC") {
+    if (btnText === "AC") {
       expression = "";
-      input.value = "";
+      inputToShow = "";
+      input.value = 0;
     }
-    else if(btnText =="DEL"){
-      expression = expression.substring(0,expression.length-1);
-      input.value=expression || "0";
-    } else if (btnText ==="=") {
+    else if (btnText == "DEL") {
+      expression = expression.substring(0, expression.length - 1);
+      inputToShow = inputToShow.substring(0, inputToShow.length - 1);
+      input.value = inputToShow || "0";
+    } else if (btnText === "=") {
       try {
-        expression = eval(expression).toString();
-        input.value = expression;
+        expression = eval(expression).toFixed(4).toString();
+        inputToShow = expression;
+        input.value = inputToShow;
       } catch (error) {
         input.value = "Error";
         expression = "";
+        inputToShow = "";
       }
-    } else {
-      
-  // Check if current button is an operator
-  if (operators.includes(btnText)) {
-    const lastChar = expression[expression.length - 1];
-    
-    // If last char is also operator, replace it
-    if (operators.includes(lastChar)) {
-      expression = expression.slice(0, -1); // Remove last operator
+    } else if (btnText === "÷") {
+      inputToShow += "÷";
+      expression += "/";
+      input.value = inputToShow;
     }
-  }
-// Add current input
-  expression += btnText;
-  input.value = expression;
+    else if (btnText === "x") {
+      inputToShow += "x";
+      expression += "*";
+      input.value = inputToShow;
+    }
+    else {
+      expression += btnText;
+      inputToShow += btnText;
+      input.value = inputToShow;
     }
   });
 });
+
 //For keyboard support
-  document.addEventListener("keydown", (e) => {
-    const btnText = e.key;
-    if (btnText === "Escape") {
+document.addEventListener("keydown", (e) => {
+  const btnText = e.key;
+  if (/^[a-zA-Z]$/.test(btnText)) {
+    e.preventDefault();
+    alert("Only numbers and operators are allowed!!!");
+    return;
+  }
+  else if (btnText === "Escape") {
+    expression = "";
+    inputToShow = "";
+    input.value = "";
+  }
+  else if (btnText === "Backspace") {
+    expression = expression.substring(0, expression.length - 1);
+    inputToShow = inputToShow.substring(0, inputToShow.length - 1);
+    input.value = inputToShow || "0";
+  }
+  else if (btnText === "Enter" || btnText === "=") {
+    try {
+      expression = eval(expression).toFixed(4).toString();
+      inputToShow = expression;
+      input.value = inputToShow;
+    } catch (error) {
+      input.value = "Error";
       expression = "";
-      input.value = "";
-    }
-    else if(btnText =="Backspace"){
-      expression = expression.substring(0,expression.length-1);
-      input.value=expression || "0";
-    } else if (btnText ==="Enter") {
-      try {
-        expression = eval(expression).toString();
-        input.value = expression;
-      } catch (error) {
-        input.value = "Error";
-        expression = "";
-      }
-    
-    } else {
-  // Check if current button is an operator
-  if (operators.includes(btnText)) {
-    const lastChar = expression[expression.length - 1];
-    
-    // If last char is also operator, replace it
-    if (operators.includes(lastChar)) {
-      expression = expression.slice(0, -1); // Remove last operator
+      inputToShow = "";
     }
   }
-  // Add current input
-  expression += btnText;
-  input.value = expression;
-    }
-  });
-
+  else if (btnText === "/" || btnText === "÷") {
+    inputToShow += "÷";
+    expression += "/";
+    input.value = inputToShow;
+  } else if (btnText === "*") {
+    inputToShow += "x";
+    expression += "*";
+    input.value = inputToShow;
+  }
+  else { // Add normal key to input
+    expression += btnText;
+    inputToShow += btnText;
+    input.value = inputToShow;
+  }
+});
